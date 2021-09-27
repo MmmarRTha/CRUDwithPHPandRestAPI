@@ -14,7 +14,7 @@ $db = $database->connect();
 $user = new User($db);
 
 //User query
-$result = $user->read();
+$result = $user->getAll();
 
 //Get row count
 $num = $result->rowCount();
