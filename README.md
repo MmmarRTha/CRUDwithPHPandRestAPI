@@ -1,4 +1,4 @@
-# CRUDwithPHPanddRestAPI
+# CRUDwithPHPandRestAPI
 This is a CRUD REstful API with pure PHP and no frameworks.
 Create
 ![create](https://user-images.githubusercontent.com/46696166/134845044-8b7cb6dc-e7a4-4d3c-90cb-9f5a785eeade.jpg)
