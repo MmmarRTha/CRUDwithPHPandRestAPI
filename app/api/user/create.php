@@ -14,18 +14,8 @@ $db = $database->connect();
 //Instatiate User user object
 $user = new User($db);
 
-//Get raw user data
-$data = json_decode(file_get_contents("php://input"));
-
-$user->name = $data->name;
-
-//Create user
+$data = $_POST['name'];
+$user->name = $data;
 if($user->create()) {
-    echo json_encode(
-        array('message' => 'User Created')
-    );
-} else {
-    echo json_encode(
-        array('message' => 'User Not Created')
-    );
+    echo json_encode($data);
 }

@@ -50,13 +50,8 @@ class User
 
         //Bind data
         $stmt->bindParam(':name', $this->name);
-
-        if($stmt->execute()) {
-            return true;
-        }
-
-        printf("Error: %s.\n", $stmt->error);
-        return false;
+        $stmt->execute();
+        return $stmt;
     }
 
     //Update User

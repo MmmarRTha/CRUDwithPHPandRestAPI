@@ -6,17 +6,16 @@ include 'resources/partials/header.php';
     <h1 class="titulo h1">CRUD Rest API Fetch </h1>
 </div>
 <div class="bg-aqua contenedor sombra form">
-    <form id="form" action="#">
+    <form id="createForm" action="#">
         <legend>Alta de usuarios <span>Todos los datos son obligatorios</span>
         </legend>
         <!--        formulario-->
         <div class="fields">
             <div class="field">
                 <label for="name">Nombre:</label>
-                <input type="text" id="name" placeholder="Nombre">
+                <input type="text" id="name" name="name" placeholder="Nombre">
             </div>
             <div class="field send">
-                <input type="hidden" id="accion" value="create">
                 <input type="submit" value="Agregar">
             </div>
     </form>
@@ -27,9 +26,11 @@ include 'resources/partials/header.php';
         <h2 class="h2">Usuarios</h2>
 
         <input type="text" id="buscar" class="buscador sombra" placeholder="Buscar Usuarios...">
-        <p class="total-usuarios"><span></span> Usuarios</p>
+        <div id="total-usuarios" class="total-usuarios">
+
+        </div>
         <div class="contenedor-tabla">
-            <table class="listado-usuarios">
+            <table id="listado-usuarios" class="listado-usuarios">
                 <thead>
                 <tr>
                     <th>ID:</th>
@@ -38,7 +39,6 @@ include 'resources/partials/header.php';
                 </tr>
                 </thead>
                 <tbody id="contenido-tabla">
-
                 </tbody>
             </table>
         </div>
