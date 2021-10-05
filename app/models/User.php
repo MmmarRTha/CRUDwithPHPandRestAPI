@@ -31,10 +31,10 @@ class User
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
         //set properties
-        $this->name = $row['name'];
+        //$this->name = $row['name'];
     }
 
     //Create User

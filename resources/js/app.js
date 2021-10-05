@@ -8,7 +8,6 @@ eventListener();
 
 function eventListener()
 {
-    //cuando el form de editar o crear se ejecuta
     createForm.addEventListener('submit', postForm);
     //listener para eliminar el boton
     //listadoUsuarios.addEventListener('click', eliminarUsuario);
@@ -24,7 +23,7 @@ function postForm(e)
 
     if( nombre === '') {
         //dos parametros: texto y clase
-        mostrarNotificacion('Todos los Campos son Obligatorios', 'error');
+        mostrarNotificacion('Todos los Campos son Obligatorios!', 'error');
     } else {
         fetch('app/api/user/create.php', {
             method: 'POST',
@@ -33,13 +32,12 @@ function postForm(e)
             .then(data => data.json())
             .then(data => {
                 console.log('success', data);
-                numeroUsuarios(data);
-            })
-        //resetear el form
-        createForm.reset();
-        //mostrar notificacion
-        mostrarNotificacion('Usuario creado correctamente', 'correcto');
-
+                mostrarNotificacion('Usuario creado correctamente!', 'correcto');
+                createForm.reset();
+            }).catch(error => {
+                console.log('error', error);
+                mostrarNotificacion('Hubo un error al crear el usuario!', 'error');
+        })
     }
 }
 
@@ -48,13 +46,16 @@ fetch('app/api/user/read.php')
     .then(response => response.json())
     .then(datos => {
         console.log('success', datos);
-        table(datos)
-        numeroUsuarios(datos)
-        buscarUsuarios(datos)
-    })
+        table(datos);
+        buscarUsuarios(datos);
+    }).catch(error =>{
+        console.log('error', error);
+        mostrarNotificacion('Hubo un error al mostrar la tabla de usuarios!', 'error');
+})
 
 function table(datos) {
     //console.log(datos.length)
+    numeroUsuarios(datos);
     contenidoTabla.innerHTML = ''
     for(let i of datos){
         contenidoTabla.innerHTML += `
@@ -62,7 +63,7 @@ function table(datos) {
             <td>${i.id}</td>
             <td>${i.name}</td>
             <td>
-                <a class="btn-editar btn"><span class="las la-edit"></span></a>
+                <a class="btn-editar btn" href="update.php?${i.id}" onclick="update(${i.id})"><span class="las la-edit"></span></a>
                 <button type="button" class="btn-borrar btn">
                     <span class="las la-trash"></span>
                 </button>
@@ -74,7 +75,7 @@ function table(datos) {
 function numeroUsuarios(datos){
     const total = datos.length;
     totalUsuarios.innerHTML = `
-    <p><span>${total}</span> Usuarios</p>
+    <p class="total-usuarios"><span>${total}</span> Usuarios</p>
     `
     console.log(total);
 }
@@ -101,4 +102,8 @@ function buscarUsuarios(datos) {
     registros = datos;
     //console.log(registros);
 
+}
+
+const update = (id) =>{
+    alert(id);
 }

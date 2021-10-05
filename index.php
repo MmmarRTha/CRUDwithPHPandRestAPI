@@ -39,6 +39,14 @@ include 'resources/partials/header.php';
                 </tr>
                 </thead>
                 <tbody id="contenido-tabla">
+                <tr>
+                    <td>
+                        <a class="btn-editar btn" href="update.php"><span class="las la-edit"></span></a>
+                        <button type="button" class="btn-borrar btn">
+                            <span class="las la-trash"></span>
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

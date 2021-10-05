@@ -18,12 +18,13 @@ $user->id = isset($_GET['id']) ? $_GET['id'] : die();
 
 //Get user
 $user->getUser();
+var_dump();
 
-//Create array
-$user_arr = array(
-    'id' => $user->id,
-    'name' => $user->name
-);
-
-//Make JSON
-print_r(json_encode($user_arr));
+////Create array
+//$user_arr = array(
+//    'id' => $user->id,
+//    'name' => $user->name
+//);
+//
+////Make JSON
+//print_r(json_encode($user_arr));
