@@ -27,7 +27,7 @@ include 'resources/partials/header.php';
 
         <input type="text" id="buscar" class="buscador sombra" placeholder="Buscar Usuarios...">
         <div id="total-usuarios" class="total-usuarios">
-
+            <p class="total-usuarios"><span></span> Usuarios</p>
         </div>
         <div class="contenedor-tabla">
             <table id="listado-usuarios" class="listado-usuarios">
@@ -40,11 +40,11 @@ include 'resources/partials/header.php';
                 </thead>
                 <tbody id="contenido-tabla">
                 <tr>
+                    <td></td>
+                    <td></td>
                     <td>
-                        <a class="btn-editar btn" href="update.php"><span class="las la-edit"></span></a>
-                        <button type="button" class="btn-borrar btn">
-                            <span class="las la-trash"></span>
-                        </button>
+                        <a class="btn-editar btn" href="update.php?${user.id}"><span class="las la-edit"></span></a>
+                        <a href="#" class="btn-borrar btn" id="delete-user"> <span class="las la-trash"></span></a>
                     </td>
                 </tr>
                 </tbody>

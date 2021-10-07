@@ -16,21 +16,11 @@ $db = $database->connect();
 //Instatiate User user object
 $user = new User($db);
 
-//Get raw user data
-$data = json_decode(file_get_contents("php://input"));
+$data = $_GET['id'];
+$user->id = $data;
 
-//Set id to delete
-$user->id = $data->id;
-
-//Delete user
-if ($user->delete()) {
-    echo json_encode(
-        array('message' => 'User Deleted')
-    );
-} else {
-    echo json_encode(
-        array('message' => 'User Not Deleted')
-    );
+if($user->delete()){
+    echo json_encode($data);
 }
 
 

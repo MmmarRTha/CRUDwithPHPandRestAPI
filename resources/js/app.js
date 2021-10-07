@@ -1,19 +1,79 @@
 const contenidoTabla = document.querySelector('#contenido-tabla'),
-      totalUsuarios = document.querySelector('#total-usuarios'),
+      totalU = document.querySelector('#total-usuarios'),
       createForm = document.querySelector('#createForm'),
+      updateForm = document.querySelector('#updateForm'),
       inputBuscador = document.querySelector('#buscar'),
       listadoUsuarios = document.querySelector('#listado-usuarios');
+let output = '';
 
 eventListener();
 
 function eventListener()
 {
     createForm.addEventListener('submit', postForm);
+    //updateForm.addEventListener('submit', putForm);
     //listener para eliminar el boton
-    //listadoUsuarios.addEventListener('click', eliminarUsuario);
+    //contenidoTabla.addEventListener('click', eliminarUsuario);
     //buscador
     inputBuscador.addEventListener('input', buscarUsuarios);
 }
+
+const renderUsers = (users) => {
+    users.forEach(user => {
+        output += `
+            <tr>
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>
+                <a class="btn-editar btn" href="update.php?${user.id}"><span class="las la-edit"></span></a>
+                <a href="#" data-id="${user.id}" class="btn-borrar btn" id="delete-user"> <span class="las la-trash"></span></a>
+            </td>
+            </tr>
+            `;
+    });
+    contenidoTabla.innerHTML = output;
+}
+
+//Get - Read users from db on a table
+//Method: GET
+fetch('app/api/user/read.php')
+    .then(response => response.json())
+    .then(datos => {
+        renderUsers(datos);
+        console.log('success', datos);
+        numeroUsuarios();
+    }).catch(error =>{
+        console.log('error', error);
+        mostrarNotificacion('Hubo un error al mostrar la tabla de usuarios!', 'error');
+})
+
+contenidoTabla.addEventListener('click', (e) =>
+{
+    e.preventDefault();
+    if(e.target.parentElement.classList.contains('btn-borrar')) {
+        //tomamos el ID
+        const id = e.target.parentElement.getAttribute('data-id');
+        //preguntar al usuario
+        const respuesta = confirm('Estas seguro (a) que deseas eliminar el usuario ?');
+        if (respuesta) {
+            const url = 'app/api/user/delete.php';
+            fetch(`${url}/?id=${id}`, {
+                method: 'DELETE',
+            })
+                .then(res => res.json())
+                .then(datos => {
+                    console.log('success', datos);
+                    numeroUsuarios();
+                    e.target.parentElement.parentElement.parentElement.remove();
+                    mostrarNotificacion('Usuario eliminado!', 'correcto');
+                }).catch(error => {
+                console.log('error', error);
+                mostrarNotificacion('Hubo un error al eliminar el usuario!', 'error');
+            })
+        }
+    }
+})
+
 
 function postForm(e)
 {
@@ -30,54 +90,30 @@ function postForm(e)
             body: dataForm
         })
             .then(data => data.json())
-            .then(data => {
-                console.log('success', data);
+            .then(datos => {
+                console.log('success', datos);
                 mostrarNotificacion('Usuario creado correctamente!', 'correcto');
+                numeroUsuarios();
                 createForm.reset();
             }).catch(error => {
-                console.log('error', error);
-                mostrarNotificacion('Hubo un error al crear el usuario!', 'error');
+            console.log('error', error);
+            mostrarNotificacion('Hubo un error al crear el usuario!', 'error');
         })
     }
 }
 
-//mostrar datos en tabla
-fetch('app/api/user/read.php')
-    .then(response => response.json())
-    .then(datos => {
-        console.log('success', datos);
-        table(datos);
-        buscarUsuarios(datos);
-    }).catch(error =>{
-        console.log('error', error);
-        mostrarNotificacion('Hubo un error al mostrar la tabla de usuarios!', 'error');
-})
+function numeroUsuarios(){
+    const totalUsuarios = document.querySelectorAll('tbody tr');
+    contenedorNumero = document.querySelector('.total-usuarios span')
+    let total = 0;
+    totalUsuarios.forEach(usuario => {
+        if(usuario.style.display === '' || usuario.style.display === 'table-row'){
+            total++
+        }
+    })
 
-function table(datos) {
-    //console.log(datos.length)
-    numeroUsuarios(datos);
-    contenidoTabla.innerHTML = ''
-    for(let i of datos){
-        contenidoTabla.innerHTML += `
-        <tr>
-            <td>${i.id}</td>
-            <td>${i.name}</td>
-            <td>
-                <a class="btn-editar btn" href="update.php?${i.id}" onclick="update(${i.id})"><span class="las la-edit"></span></a>
-                <button type="button" class="btn-borrar btn">
-                    <span class="las la-trash"></span>
-                </button>
-            </td>
-        </tr>
-        `
-    }
-}
-function numeroUsuarios(datos){
-    const total = datos.length;
-    totalUsuarios.innerHTML = `
-    <p class="total-usuarios"><span>${total}</span> Usuarios</p>
-    `
     console.log(total);
+    contenedorNumero.textContent = total;
 }
 //notificacion en pantalla
 function mostrarNotificacion(mensaje, clase) {
@@ -104,6 +140,3 @@ function buscarUsuarios(datos) {
 
 }
 
-const update = (id) =>{
-    alert(id);
-}

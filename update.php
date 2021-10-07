@@ -9,12 +9,12 @@ include 'resources/partials/header.php';
     <a href="index.php" class="btn volver">Volver</a>
 </div>
 <div class="bg-aqua contenedor sombra form">
-    <form id="usuario" action="#">
+    <form id="updateForm" action="#">
         <legend>Actualice el usuario</legend>
         <div class="fields">
             <div class="field">
                 <label for="name">Nombre:</label>
-                <input type="text" id="name" placeholder="Nombre"
+                <input type="text" id="name" name="name" placeholder="Nombre"
                        value=""
                 >
             </div>

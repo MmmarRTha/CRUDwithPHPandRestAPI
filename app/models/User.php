@@ -54,6 +54,7 @@ class User
         return $stmt;
     }
 
+
     //Update User
     public function update()
     {
@@ -89,12 +90,7 @@ class User
         $this->id = htmlspecialchars(strip_tags($this->id));
         //Bind data
         $stmt->bindParam(':id', $this->id);
-
-        if($stmt->execute()) {
-            return true;
-        }
-
-        printf("Error: %s.\n", $stmt->error);
-        return false;
+        $stmt->execute();
+        return $stmt;
     }
 }
