@@ -2,22 +2,21 @@ const contenidoTabla = document.querySelector('#contenido-tabla'),
       totalU = document.querySelector('#total-usuarios'),
       createForm = document.querySelector('#createForm'),
       updateForm = document.querySelector('#updateForm'),
-      inputBuscador = document.querySelector('#buscar'),
-      listadoUsuarios = document.querySelector('#listado-usuarios');
-let output = '';
+      pintarNombre = document.querySelector('#pintarNombre'),
+      inputBuscador = document.querySelector('#buscar');
+
+
+let   output = '';
 
 eventListener();
 
 function eventListener()
 {
-    createForm.addEventListener('submit', postForm);
-    //updateForm.addEventListener('submit', putForm);
-    //listener para eliminar el boton
-    //contenidoTabla.addEventListener('click', eliminarUsuario);
+    createForm.addEventListener('submit', postForm);//updateForm.addEventListener('submit', putForm);
     //buscador
     inputBuscador.addEventListener('input', buscarUsuarios);
 }
-
+//Read all
 const renderUsers = (users) => {
     users.forEach(user => {
         output += `
@@ -25,7 +24,7 @@ const renderUsers = (users) => {
             <td>${user.id}</td>
             <td>${user.name}</td>
             <td>
-                <a class="btn-editar btn" href="update.php?${user.id}"><span class="las la-edit"></span></a>
+                <a class="btn-editar btn" onclick="update(${user.id})"><span class="las la-edit"></span></a>
                 <a href="#" data-id="${user.id}" class="btn-borrar btn" id="delete-user"> <span class="las la-trash"></span></a>
             </td>
             </tr>
@@ -45,8 +44,10 @@ fetch('app/api/user/read.php')
     }).catch(error =>{
         console.log('error', error);
         mostrarNotificacion('Hubo un error al mostrar la tabla de usuarios!', 'error');
-})
+    })
 
+//Delete
+//Method: DELETE
 contenidoTabla.addEventListener('click', (e) =>
 {
     e.preventDefault();
@@ -74,7 +75,8 @@ contenidoTabla.addEventListener('click', (e) =>
     }
 })
 
-
+//Create
+//Method: POST
 function postForm(e)
 {
     e.preventDefault();
@@ -86,7 +88,7 @@ function postForm(e)
         mostrarNotificacion('Todos los Campos son Obligatorios!', 'error');
     } else {
         fetch('app/api/user/create.php', {
-            method: 'POST',
+            method: 'GET',
             body: dataForm
         })
             .then(data => data.json())
@@ -100,6 +102,37 @@ function postForm(e)
             mostrarNotificacion('Hubo un error al crear el usuario!', 'error');
         })
     }
+}
+
+//Read single
+const update = (id) => {
+    alert(id);
+    const url = 'app/api/user/read_single.php';
+    const formData = new FormData();
+    formData.append('id', id);
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    })
+        .then(data => data.json())
+        .then(data => {
+            //renderSingleUser(data);
+            window.location.href = 'update.php';
+            console.log('success', data);
+            pintarUsuario(data);
+        })
+        .catch(error => {
+            console.log('error', error);
+        });
+}
+const pintarUsuario = (data) => {
+    console.log(data.name);
+
+    output = `
+        <label for="name">Nombre:</label>
+        <input type="text" name="name" placeholder="Nombre" value="${data.name}">
+    `;
+    pintarNombre.innerHTML = output;
 }
 
 function numeroUsuarios(){

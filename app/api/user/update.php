@@ -15,22 +15,28 @@ $db = $database->connect();
 //Instatiate User user object
 $user = new User($db);
 
-//Get raw user data
-$data = json_decode(file_get_contents("php://input"));
-
-//Set id to update
-$user->id = $data->id;
-
-$user->name = $data->name;
-
-//Update user
-if ($user->update()) {
-    echo json_encode(
-        array('message' => 'User Updated')
-    );
-} else {
-    echo json_encode(
-        array('message' => 'User Not Updated')
-    );
+$data = $_POST['id'];
+$user->id = $data;
+if($user->update()){
+    echo json_encode($data);
 }
+
+////Get raw user data
+//$data = json_decode(file_get_contents("php://input"));
+//
+////Set id to update
+//$user->id = $data->id;
+//
+//$user->name = $data->name;
+//
+////Update user
+//if ($user->update()) {
+//    echo json_encode(
+//        array('message' => 'User Updated')
+//    );
+//} else {
+//    echo json_encode(
+//        array('message' => 'User Not Updated')
+//    );
+//}
 

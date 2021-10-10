@@ -71,12 +71,8 @@ class User
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':id', $this->id);
 
-        if($stmt->execute()) {
-            return true;
-        }
-
-        printf("Error: %s.\n", $stmt->error);
-        return false;
+        $stmt->execute();
+        return $stmt;
     }
 
     //Delete user

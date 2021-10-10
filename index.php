@@ -43,7 +43,7 @@ include 'resources/partials/header.php';
                     <td></td>
                     <td></td>
                     <td>
-                        <a class="btn-editar btn" href="update.php?${user.id}"><span class="las la-edit"></span></a>
+                        <a class="btn-editar btn" href="update.php?id=${user.id}"><span class="las la-edit"></span></a>
                         <a href="#" class="btn-borrar btn" id="delete-user"> <span class="las la-trash"></span></a>
                     </td>
                 </tr>
