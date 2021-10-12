@@ -23,6 +23,27 @@
     max-width: 1000px;
     margin: 0 auto ;
 }
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content{
+    background-color: var(--white);
+    margin: 2% auto;
+    width: 90%;
+    padding-bottom: 1px;
+}
+@media only screen and (min-width: 768px){
+    .modal-content {
+        width: 60%}
+}
 .h1,
 .h2{
     text-align: center;

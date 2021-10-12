@@ -15,11 +15,14 @@ $db = $database->connect();
 //Instatiate User user object
 $user = new User($db);
 
-$data = $_POST['id'];
-$user->id = $data;
-if($user->update()){
-    echo json_encode($data);
-}
+$_POST['id'];
+$_POST['name'];
+
+
+//$user->name = $result;
+//if($user->update()){
+//    echo json_encode($result);
+//}
 
 ////Get raw user data
 //$data = json_decode(file_get_contents("php://input"));
