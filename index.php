@@ -71,7 +71,7 @@ include 'resources/partials/header.php';
                                 <input type="text" name="name" placeholder="Nombre" value="${data.name}">
                             </div>
                             <div class="field send">
-                                <input data-id="" type="submit" value="Editar">
+                                <input id="send-update" data-id="${data.id}" type="submit" value="Editar">
                             </div>
                         </div>
                 </form>

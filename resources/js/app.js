@@ -87,7 +87,7 @@ function postForm(e)
         mostrarNotificacion('Todos los Campos son Obligatorios!', 'error');
     } else {
         fetch('app/api/user/create.php', {
-            method: 'GET',
+            method: 'POST',
             body: dataForm
         })
             .then(data => data.json())
