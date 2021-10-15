@@ -152,6 +152,7 @@ function openModal(data){
             const dataForm = new FormData(updateForm);
             dataForm.append('id', idUpdate);
             let newName = dataForm.get('name');
+            let newlastName = dataForm.get('lastName');
             let idUser = dataForm.get('id');
             if(newName === ''){
                 mostrarNotificacion('Todos los Campos son Obligatorios!', 'error');
@@ -178,8 +179,6 @@ function openModal(data){
         }
     })
 }
-
-
 
 
 function numeroUsuarios(){

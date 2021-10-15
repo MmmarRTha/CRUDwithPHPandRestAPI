@@ -63,16 +63,22 @@ class User
     public function update()
     {
         //Create query
-        $query = 'UPDATE user SET name = :name WHERE id = :id';
+        $query = 'UPDATE user 
+        SET 
+            name = :name,
+            lastName = :lastName
+            WHERE id = :id';
         //Prepare statement
         $stmt = $this->conn->prepare($query);
 
         //Clean data
         $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->lastName = htmlspecialchars(strip_tags($this->lastName));
         $this->id = htmlspecialchars(strip_tags($this->id));
 
         //Bind data
         $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':lastName', $this->lastName);
         $stmt->bindParam(':id', $this->id);
 
         $stmt->execute();
