@@ -14,8 +14,17 @@ $db = $database->connect();
 //Instatiate User user object
 $user = new User($db);
 
-$data = $_POST['name'];
-$user->name = $data;
+$dataName = $_POST['name'];
+$dataLastName = $_POST['lastName'];
+
+$data = [
+  'name' => $dataName,
+  'lastName' => $dataLastName
+];
+
+$user->name = $data['name'];
+$user->lastName = $data['lastName'];
+
 if($user->create()) {
     echo json_encode($data);
 }

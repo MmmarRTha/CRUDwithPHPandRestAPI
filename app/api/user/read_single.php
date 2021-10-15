@@ -17,5 +17,4 @@ $user = new User($db);
 $user->id = $_POST['id'] ?? die();
 
 $result = $user->getUser();
-//var_dump($result);
 echo json_encode($result);

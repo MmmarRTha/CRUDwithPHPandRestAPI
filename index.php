@@ -15,6 +15,10 @@ include 'resources/partials/header.php';
                 <label for="name">Nombre:</label>
                 <input type="text" id="name" name="name" placeholder="Nombre">
             </div>
+            <div class="field">
+                <label for="lastName">Apellido:</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Apellido">
+            </div>
             <div class="field send">
                 <input type="submit" value="Agregar">
             </div>
@@ -35,6 +39,7 @@ include 'resources/partials/header.php';
                 <tr>
                     <th>ID:</th>
                     <th>Nombre:</th>
+                    <th>Apellido:</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -69,6 +74,10 @@ include 'resources/partials/header.php';
                                 <input type="number" value="${data.id}" hidden="true">
                                 <label for="name">Nombre:</label>
                                 <input type="text" name="name" placeholder="Nombre" value="${data.name}">
+                            </div>
+                            <div class="field">
+                                <label for="lastName">Apellido:</label>
+                                <input type="text" id="lastName" name="lastName" value="${data.lastName}">
                             </div>
                             <div class="field send">
                                 <input id="send-update" data-id="${data.id}" type="submit" value="Editar">

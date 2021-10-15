@@ -22,6 +22,7 @@ const renderUsers = (users) => {
             <tr>
             <td>${user.id}</td>
             <td id="get-name">${user.name}</td>
+            <td id="get-name">${user.lastName}</td>
             <td>
                 <a id="modalEditBtn" class="btn-editar btn" onclick="update(${user.id})"><span class="las la-edit"></span></a>
                 <a href="#" data-id="${user.id}" class="btn-borrar btn" id="delete-user"> <span class="las la-trash"></span></a>
@@ -81,8 +82,9 @@ function postForm(e)
     e.preventDefault();
     const dataForm = new FormData(createForm);
     let nombre = dataForm.get('name');
+    let apellido = dataForm.get('lastName');
 
-    if( nombre === '') {
+    if( nombre === '' || apellido === '') {
         //dos parametros: texto y clase
         mostrarNotificacion('Todos los Campos son Obligatorios!', 'error');
     } else {
@@ -132,6 +134,10 @@ function openModal(data){
         <input type="number" value="${data.id}" hidden="true">
         <label for="name">Nombre:</label>
         <input type="text" name="name" placeholder="Nombre" value="${data.name}">
+    </div>
+     <div class="field">
+        <label for="lastName">Apellido:</label>
+        <input type="text" id="lastName" name="lastName" value="${data.lastName}">
     </div>
     <div class="field send">
         <input id="send-update" data-id="${data.id}" type="submit" value="Editar">
